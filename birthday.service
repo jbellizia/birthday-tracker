@@ -1,0 +1,14 @@
+# /etc/systemd/system/birthday.service
+[Unit]
+Description=Gunicorn instance to serve birthday app
+After=network.target
+
+[Service]
+User=pi
+Group=www-data
+WorkingDirectory=/home/pi/birthdayapp
+Environment="PATH=/home/pi/birthdayapp/venv/bin"
+ExecStart=/home/pi/birthdayapp/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8002 wsgi:app
+
+[Install]
+WantedBy=multi-user.target

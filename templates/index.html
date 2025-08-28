@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Birthdays{% endblock %}
+{% block content %}
+	<h1>Birthdays</h1>
+
+	<input type="text" id="search_field" placeholder="Search Birthdays">
+
+
+	{% if birthdays %}
+		<table id="birthday-table">
+			<thead>
+			<tr><th>Name</th><th>Date</th><th>Age</th><th>Actions</th></tr>
+			</thead>
+			<tbody>
+			{% for b in birthdays %}
+			<tr class="birthday_row">
+				<td class="birthday_name">{{ b.name }}</td>
+				<td>{{ b.date }}</td>
+				<td>{{ b.age if b.age is not none else "" }}</td>
+				<td>
+				<a href="{{ url_for('edit', birthday_id=b.id) }}">Edit</a>
+				<form class="inline" method="post" action="{{ url_for('delete', birthday_id=b.id) }}" onsubmit="confirmDelete(event, this)">
+					<button type="submit">Delete</button>
+				</form>
+				</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p>No birthdays yet. <a href="{{ url_for('add') }}">Add one</a>.</p>
+	{% endif %}
+{% endblock %}
