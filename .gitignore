@@ -17,5 +17,4 @@ venv/
 *.log
 
 # Other
-*.sqlite3
 .DS_Store
